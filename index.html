@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- displays site properly based on user's device -->
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="./assets/images/favicon-32x32.png"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="/styles.css" />
+		<title>Frontend Mentor | Mortgage repayment calculator</title>
+
+		<style>
+			.attribution {
+				font-size: 11px;
+				text-align: center;
+			}
+			.attribution a {
+				color: hsl(228, 45%, 44%);
+			}
+			:focus {
+				outline: 2px dashed #000;
+				outline-offset: 4px;
+			}
+		</style>
+	</head>
+	<body class="flex flex-col min-h-screen bg-[#e3f4fc]">
+		<main
+			role="main"
+			class="flex flex-wrap lg:flex-nowrap justify-center w-[90%] md:w-[48%] mt-auto mx-auto bg-white min-h-[50dvh] rounded-[22px]"
+		>
+			<div class="bg-white p-8 rounded-[22px] md:w-[60%]">
+				<!-- Title Text -->
+				<div class="flex justify-between mb-7">
+					<h1 class="font-bold text-2xl">Mortgage Calculator</h1>
+					<button
+						class="underline text-[#6b7276]"
+						aria-label="Clear all fields"
+					>
+						Clear All
+					</button>
+				</div>
+				<form
+					class="text-[#6f8286] grid grid-cols-4 flex flex-col gap-6"
+					action=""
+					aria-describedby="form-description"
+				>
+					<p id="form-description" class="sr-only">
+						Enter the mortgage amount, term, interest rate, and select the type
+						of mortgage to calculate the repayments.
+					</p>
+					<!-- Amount -->
+					<div class="col-span-4 flex flex-col gap-2">
+						<label for="mortgageAmount" class="font-medium text-[#7a8284]"
+							>Mortgage Amount</label
+						>
+						<div class="flex border border-[#9ABED5] rounded">
+							<span
+								class="font-bold bg-[#e3f4fc] text-[#617580] flex items-center justify-center px-3"
+								>$</span
+							><input
+								id="mortgageAmount"
+								class="w-[90%] py-2"
+								type="number"
+								aria-required="true"
+							/>
+						</div>
+					</div>
+					<!-- Term -->
+					<div class="col-span-2 flex flex-col gap-2">
+						<label for="mortgageTerm" class="font-medium text-[#7a8284]"
+							>Mortgage Term</label
+						>
+						<div class="flex border border-[#9ABED5] rounded">
+							<input
+								id="mortgageTerm"
+								class="w-[90%] py-2"
+								type="number"
+								min="1"
+								aria-required="true"
+							/>
+							<span
+								class="font-bold bg-[#e3f4fc] flex items-center justify-center px-3 text-[#617580]"
+								>years</span
+							>
+						</div>
+					</div>
+					<!-- Interest Rate -->
+					<div class="col-span-2 flex flex-col gap-2">
+						<label for="mortgageRate" class="font-medium text-[#7a8284]"
+							>Interest Rate</label
+						>
+						<div class="flex border border-[#9ABED5] rounded">
+							<input
+								id="mortgageRate"
+								class="w-[90%] py-2"
+								type="number"
+								aria-required="true"
+							/><span
+								class="font-bold bg-[#e3f4fc] flex items-center justify-center px-3 text-[#617580]"
+								>%</span
+							>
+						</div>
+					</div>
+					<!-- Types -->
+					<div class="col-span-4 flex flex-col gap-2">
+						<fieldset>
+							<legend class="font-medium text-[#7a8284]">Mortgage Type</legend>
+							<div id="mortgageType" class="flex flex-col gap-3">
+								<label
+									class="block border px-4 py-2 rounded font-bold text-[#364b54]"
+								>
+									<input
+										class=""
+										type="radio"
+										name="mortgageType"
+										value="repayment"
+										aria-required="true"
+									/>
+									Repayment
+								</label>
+								<label
+									class="block border px-4 py-2 rounded font-bold text-[#364b54]"
+								>
+									<input
+										type="radio"
+										name="mortgageType"
+										value="interestonly"
+									/>
+									Interest Only
+								</label>
+							</div>
+						</fieldset>
+					</div>
+
+					<!-- Submit -->
+					<button
+						class="block mt-12 col-span-4 bg-[#dada37] rounded-full font-bold py-3 text-black"
+						type="submit"
+					>
+						Calculate Repayments
+					</button>
+				</form>
+			</div>
+			<!-- Results -->
+			<div
+				class="bg-[#133040] text-white p-8 rounded-bl-[80px] rounded-r-3xl lg:w-[50%] min-h-[200px]"
+				role="region"
+				aria-live="polite"
+				id="results-section"
+			>
+				<!-- Empty results start -->
+				<div id="noresults">
+					<h3>Results shown here</h3>
+					<p>
+						Complete the form and click “calculate repayments” to see what your
+						monthly repayments would be.
+					</p>
+				</div>
+				<!-- Empty results end -->
+				<!-- Completed results start -->
+				<div class="hidden" id="results">
+					<h3>Your results</h3>
+					<p>
+						Your results are shown below based on the information you provided.
+						To adjust the results, edit the form and click “calculate
+						repayments” again. Your monthly repayments Total you'll repay over
+						the term
+					</p>
+				</div>
+				<!-- Completed results end -->
+			</div>
+		</main>
+
+		<footer class="attribution mt-auto" role="contentinfo">
+			Challenge by
+			<a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+			Coded by <a href="#">Jesse Gauthier</a>.
+		</footer>
+	</body>
+</html>
